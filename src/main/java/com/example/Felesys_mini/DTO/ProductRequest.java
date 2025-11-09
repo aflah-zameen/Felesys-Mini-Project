@@ -16,6 +16,6 @@ public record ProductRequest(
         @NotBlank(message = "Brand is required")
         String brand,
 
-        @NotBlank(message = "Category ID is required")
-        String categoryId
+        @NotBlank(message = "Category Name is required")
+        String categoryName
 ){}

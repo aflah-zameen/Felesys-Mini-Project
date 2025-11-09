@@ -24,7 +24,9 @@ public class ProductService {
     }
 
     public void save(Product product) {
-        product.setProductId("PROD_"+ UUID.randomUUID());
+        if(product.getProductId() == null){
+            product.setProductId("PROD_"+ UUID.randomUUID());
+        }
         productRepository.save(product);
     }
 

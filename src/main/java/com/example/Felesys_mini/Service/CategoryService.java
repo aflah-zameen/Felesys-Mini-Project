@@ -3,6 +3,7 @@ package com.example.Felesys_mini.Service;
 import com.example.Felesys_mini.DTO.CategoryResponse;
 import com.example.Felesys_mini.Entity.Category;
 import com.example.Felesys_mini.Repository.CategoryRepository;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,17 @@ public class CategoryService {
                 categories.size(),
                 categories
         );
+    }
+
+    public Category addCategory(Category category){
+        return categoryRepository.addCategory(category);
+    }
+
+    public boolean isAvailable(String name){
+       return categoryRepository.isAvailable(name);
+    }
+
+    public Category getCategory(@NotBlank(message = "Category Name is required") String s) {
+        return categoryRepository.getCategory(s);
     }
 }

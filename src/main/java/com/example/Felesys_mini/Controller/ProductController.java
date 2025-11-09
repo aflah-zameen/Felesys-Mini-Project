@@ -4,6 +4,7 @@ package com.example.Felesys_mini.Controller;
 import com.example.Felesys_mini.DTO.CategoryResponse;
 import com.example.Felesys_mini.DTO.ProductCategoryResponse;
 import com.example.Felesys_mini.DTO.ProductRequest;
+import com.example.Felesys_mini.Entity.Category;
 import com.example.Felesys_mini.Entity.Product;
 import com.example.Felesys_mini.Repository.ProductRepository;
 import com.example.Felesys_mini.Service.CategoryService;
@@ -12,6 +13,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/product")
@@ -22,11 +25,14 @@ public class ProductController {
 
     @PostMapping("/save")
     public ResponseEntity<String> addProduct(@Valid  @RequestBody ProductRequest productRequest){
+
+        Category category = categoryService.getCategory(productRequest.categoryName());
+
         Product product = Product.builder()
                 .productName(productRequest.productName())
                 .brand(productRequest.brand())
                 .productImage(productRequest.productImage())
-                .categoryId(productRequest.categoryId())
+                .categoryId(category.getCategoryId())
                 .price(productRequest.price())
                 .build();
         productService.save(product);
